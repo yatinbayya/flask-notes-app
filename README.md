@@ -1,4 +1,4 @@
-# flask-notes
+# flask-notes-app
 
 Keep track of your notes with Flask-Notes, a simple notes app. Some features include:
 	
