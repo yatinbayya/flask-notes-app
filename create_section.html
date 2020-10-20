@@ -1,0 +1,11 @@
+{% extends "create_base.html" %}
+
+{% block form %}
+    <h2>Create a New Section</h2>
+    <form action="/notebook/{{notebook}}/note/{{note}}/section/create" method="post" id="sectionform">
+        <input type="text" placeholder="Enter the Section Name" name="name">
+        <p style="color: red;">{{message}}</p>
+        <textarea name="content" form="noteform" placeholder="Enter Note Content Here or Create Note" rows="10"></textarea>
+        <input type="submit" value="Create Section">
+    </form>
+{% endblock %}

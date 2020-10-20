@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title%}<title>Notes | Home</title>{% endblock %}
+{% block side %}
+<h1>My Notebooks:</h1>
+{%for notebook in notebooks%}
+<div class="notebook" id="{{notebook.id}}">
+    <a href="notebooks/{{notebook.id}}" class="a">
+        <h1 class="notebook-h1">{{notebook.name}}</h1>
+    </a>
+    <div class="contextmenu" id="contextmenu">
+        <a href="/notebooks/{{notebook.id}}">Open {{notebook.name}}</a><br>
+        <a href="/notebooks/{{notebook.id}}/delete">Delete {{notebook.name}}</a><br>
+        <a href="/notebook/create">Create a New Notebook</a><br>
+    </div>
+</div>
+{% endfor %}
+<a href="/notebook/create" class="buttonlike">+ Create a new Notebook</a>
+{% endblock %}
+
+{% block main %}
+{% if not notebook_available %}
+<div>
+<p style="color: #3d3d3d; line-height: 2.3;">
+    To Create A New Notebook Click on the "Create a New Notebook" button<br>
+    A Notebook can Contain a Password but does not have to<br>
+    Right Click the Notebook to Get Options<br>
+    Left Click the Notebook to Open it<br>
+    Once You Opened it, Creating and Editing a Note is the Same Thing<br>
+    <strong style="margin: 0;padding: 0;">Note:</strong> A Notebook is a Collection of Notes. A Note is a Collection of Information
+</p>
+</div>
+{% endif%}
+{% endblock %}
