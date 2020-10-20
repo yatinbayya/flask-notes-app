@@ -1,0 +1,10 @@
+{% extends "create_base.html" %}
+
+{% block form %}
+    <h2>Edit Notebook: {{name}}</h2>
+    <form action="/notebooks/{{notebook.id}}/edit" method="post">
+        <input type="text" placeholder="Enter the Notebook Name" name="name" value="{{notebook.name}}">
+        <p style="color: red;">{{message}}</p>
+        <input type="submit" value="Update Notebook">
+    </form>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "delete_base.html" %}
+{%block title%}
+<title>Notes | Login</title>
+{%endblock%}
+{% block form %}
+<h2>Login to {{notebook.name}}</h2>
+<form action="/notebooks/{{notebook.id}}/login" method="post">
+    <input type="password" placeholder="Enter the Password" name="password">
+    <p style="color: red;">{{message}}</p>
+    <input type="submit" value="Login">
+</form>
+{% endblock %}

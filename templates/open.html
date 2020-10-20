@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}<title>Notes | {{notebook.name}}</title>{% endblock %}
+
+{% block side %}
+
+<!-- Notebook Options -->
+<h1>
+    {{notebook.name}} 
+    <a href="/notebooks/{{notebook.id}}/edit" class="option">Edit</a>
+    <a href="/notebooks/{{notebook.id}}/delete" class="option danger">Delete</a>
+</h1>
+
+<!-- Note Options and Link In Sidebar -->
+{%for note in notes%}
+<div class="note" id="div-note{{note.id}}">
+    <a href="/notebooks/{{notebook.id}}/note/{{note.id}}" class="a">
+        <h1 class="note-h1">{{note.name}}</h1>
+    </a>
+    <div class="contextmenu" id="contextmenu">
+        <a href="/notebooks/{{notebook.id}}/note/{{note.id}}/delete">Delete {{note.name}}</a><br>
+        <a href="/notebooks/{{notebook.id}}/note/{{note.id}}">Open {{note.name}}</a>
+    </div>
+</div>
+{%endfor%}
+
+<a href="/notebooks/{{notebook.id}}/note/create" class="buttonlike">+ Create a New Note</a><br><br>
+{% endblock %}
+
+
+{% block main %}
+{% if open %}
+<!-- Script for when a Note is Open -->
+<script>
+    window.onload = function(){
+        changeColor("{{ opened.color }}")
+        changefont("{{ opened.font }}")
+    }
+    window.setInterval(function () {
+        document.getElementById("content-field").value = document.getElementById("content").innerHTML;
+        document.getElementById("section-field").value = document.getElementById("section-content").innerHTML;
+    }, 500)
+
+    function changefont(font) {
+        document.documentElement.style.setProperty("--note-font", font);
+        document.getElementById("note-font").value = font;
+    }
+
+    function changeColor(color) {
+        document.documentElement.style.setProperty("--note-color", color);
+        document.getElementById("note-color").value = color;
+    }
+</script>
+
+<!-- Form for all the Editing and Formating Options -->
+<form action="/notebooks/{{notebook.id}}/note/{{opened.id}}" method="post">
+    <button onclick="toggleSettings()" type="button">Toggle Settings</button>
+    <div id="settings">
+        <h2>Settings</h2>
+        Font Family:
+        <button onclick="changefont('Arial, Helvetica, sans-serif')" type="button">Sans Serif</button>
+        <button onclick="changefont('Georgia , Times New Roman , Times , serif')" type="button">Serif</button>
+        <button onclick="changefont('Courier New, Courier, monospace')" type="button">Monospace</button>
+        <button onclick="changefont('Lobster Two , Freestyle Script , cursive')" type="button">Cursive</button>
+        <br><br>
+        Colors:
+        <button onclick="changeColor('#000000')" type="button">Black</button>
+        <button onclick="changeColor('#0000ff')" type="button">Blue</button>
+        <button onclick="changeColor('#ff0000')" type="button">Red</button>
+    </div>
+    <br>
+    <input type="text" id="title" class="title-field" name="title" value="{{opened.name}}"></input>
+    <p id="content" contenteditable="True" class="content">{{opened.content}}</p><br>
+
+    {%for section in sections%}
+    <input type="text" id="title" class="title-field" style="font-size: 25px;" name="{{section.id}}-section-title"
+        value="{{section.name}}"></input>
+    <p id="section-content" contenteditable="True" class="content">{{section.content}}</p><br>
+    <input typec="text" name="{{section.id}}-section-content" id="section-field" style="display: none;">
+    <a class="option danger" href="/notebook/{{notebook.id}}/note/{{opened.id}}/section/{{section.id}}/delete">Delete {{section.name}}</a>
+    <br>
+    <a class="a" href="/notebook/{{notebook.id}}/note/{{opened.id}}/section/create"></a>
+    {%endfor%}
+    
+    <input typec="text" name="content" id="content-field">
+    <a class="button" href="/notebook/{{notebook.id}}/note/{{opened.id}}/section/create">Add a New Section</a>
+    <br>
+
+    <input type="text" name="font" id="note-font" style="display: none;">
+    <input type="text" name="color" id="note-color" style="display: none;">
+
+    <br><input type="submit" value="Save Changes">
+</form>
+
+{%else%}
+<!-- If Note is Not Opened -->
+<h1 id="title">Open a Note Page or Make a New One</h1>
+{% endif %}
+</div>
+{% endblock %}

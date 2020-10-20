@@ -1,0 +1,7 @@
+{% extends "delete_base.html" %}
+{% block form %}
+<h2>Delete Note: {{section.name}}</h2>
+<form action="/notebook/{{notebook}}/note/{{note}}/section/{{section.id}}/delete" method="post">
+    <input type="submit" value="Delete Section" class="danger">
+</form>
+{% endblock %}

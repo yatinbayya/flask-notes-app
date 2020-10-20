@@ -1,0 +1,11 @@
+{% extends "create_base.html" %}
+
+{% block form %}
+    <h2>Create a New Note</h2>
+    <form action="/notebooks/{{id}}/note/create" method="post" id="noteform">
+        <input type="text" placeholder="Enter the Note Name" name="name">
+        <p style="color: red;">{{message}}</p>
+        <textarea name="content" form="noteform" placeholder="Enter Note Content Here or Create Note" rows="10"></textarea>
+        <input type="submit" value="Create Note">
+    </form>
+{% endblock %}

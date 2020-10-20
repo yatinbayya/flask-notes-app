@@ -1,0 +1,11 @@
+{% extends "delete_base.html" %}
+{% block form %}
+<h2>Delete Notebook {{name}}</h2>
+<form action="/notebooks/{{id}}/delete" method="post">
+    {% if password %}
+    <input type="password" placeholder="Enter Password before Deleting" name="password">
+    <p style="color: red;">{{message}}</p>
+    {% endif %}
+    <input type="submit" value="Delete Notebook" class="danger">
+</form>
+{% endblock %}
